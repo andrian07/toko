@@ -113,6 +113,12 @@
             $product_unit     = $this->input->post('product_unit');
             $product_category = $this->input->post('product_category');
             $product_price    = $this->input->post('product_price');
+            $product_price    = str_replace('.', '', $product_price);
+            $product_cogs     = $this->input->post('product_cogs');
+            $product_cogs     = str_replace('.', '', $product_cogs);
+            $product_description = $this->input->post('product_description');
+
+
             if (empty($product_code)) {
                 echo json_encode([
                     "code" => 0,
@@ -153,13 +159,25 @@
                 ]);
                 return;
             }
+
+            if ($product_cogs < 1) {
+                echo json_encode([
+                    "code" => 0,
+                    "status" => "error",
+                    "message" => "Harga ModalTidak Boleh 0"
+                ]);
+                return;
+            }
             $data = [
                 "product_code"      => $product_code,
                 "product_name"      => $product_name,
                 "unit_id"           => $product_unit,
                 "product_price"     => $product_price,
+                "product_cogs"      => $product_cogs,
+                "product_details"   => $product_description,
                 "category_id"       => $product_category
             ];
+
             $this->masterdata_model->save_product($data);
             echo json_encode([
                 "code" => 200,
@@ -177,6 +195,11 @@
             $product_unit     = $this->input->post('product_unit');
             $product_category = $this->input->post('product_category');
             $product_price    = $this->input->post('product_price');
+            $product_price    = str_replace('.', '', $product_price);
+            $product_cogs     = $this->input->post('product_cogs');
+            $product_cogs     = str_replace('.', '', $product_cogs);
+            $product_description = $this->input->post('product_description');
+
             if (empty($product_id)) {
                 echo json_encode([
                     "code" => 0,
@@ -225,12 +248,24 @@
                 ]);
                 return;
             }
+
+            if ($product_cogs < 1) {
+                echo json_encode([
+                    "code" => 0,
+                    "status" => "error",
+                    "message" => "Harga ModalTidak Boleh 0"
+                ]);
+                return;
+            }
+
             $data = [
                 "product_code"      => $product_code,
                 "product_name"      => $product_name,
                 "unit_id"           => $product_unit,
                 "product_price"     => $product_price,
-                "category_id"       => $product_category
+                "category_id"       => $product_category,
+                "product_cogs"      => $product_cogs,
+                "product_details"   => $product_description
             ];
             $this->masterdata_model->edit_product($data, $product_id);
             echo json_encode([

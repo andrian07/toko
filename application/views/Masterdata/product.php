@@ -91,7 +91,7 @@ require DOC_ROOT_PATH . $this->config->item('header');
 
                                                 <div>
                                                     <label for="product_description" style="font-size: 13px;">Keterangan</label>
-                                                    <input id="product_description" type="text" class="form-input" placeholder="Masukan Keterangan Produk" />
+                                                    <textarea id="product_description" type="text" class="form-input"></textarea>
                                                 </div>
                                             </form>
                                             <div class="flex items-center rounded bg-danger-light p-3.5 text-danger dark:bg-danger-dark-light  error-message">
@@ -163,7 +163,7 @@ require DOC_ROOT_PATH . $this->config->item('header');
 
                                     <div>
                                         <label for="product_description_edit" style="font-size: 13px;">Keterangan</label>
-                                        <input id="product_description_edit" type="text" class="form-input" placeholder="Masukan Keterangan Produk" />
+                                         <textarea id="product_description_edit"  x-model="$store.product.form.product_description" type="text" class="form-input"></textarea>
                                     </div>
 
                                     <div class="flex items-center rounded bg-danger-light p-3.5 text-danger dark:bg-danger-dark-light  error-message">
@@ -254,8 +254,10 @@ class="flex flex-col gap-3">
                     Alpine.store('product').form.product_name = res.product_name;
                     Alpine.store('product').form.product_unit = res.unit_id;
                     Alpine.store('product').form.product_category = res.category_id;
+                    Alpine.store('product').form.product_description = res.product_details;
                     Alpine.store('product').openEdit = true;
                    product_price_edit.set(res.product_price)
+                   product_cogs_edit.set(res.product_cogs)
                 }
             }
         });
@@ -409,11 +411,13 @@ class="flex flex-col gap-3">
 $('#save-category').on('click', function (e) {
     e.preventDefault();
 
-    var product_code     = $("#product_code").val();
-    var product_name     = $("#product_name").val();
-    var product_unit     = $("#product_unit").val();
-    var product_category = $("#product_category").val();
-    var product_price    = product_price_val.get();
+    var product_code        = $("#product_code").val();
+    var product_name        = $("#product_name").val();
+    var product_unit        = $("#product_unit").val();
+    var product_category    = $("#product_category").val();
+    var product_price       = product_price_val.get();
+    var product_cogs        = product_cogs_val.get();
+    var product_description = $("#product_description").val();
 
     $.ajax({
         type: "POST",
@@ -423,7 +427,8 @@ $('#save-category').on('click', function (e) {
             product_code: product_code,
             product_name: product_name,
             product_unit: product_unit,
-            product_name: product_name,
+            product_cogs: product_cogs,
+            product_description: product_description,
             product_category: product_category,
             product_price: product_price
         },
@@ -517,6 +522,8 @@ $('#edit-product').on('click', function (e) {
     var product_name     = $("#product_name_edit").val();
     var product_unit     = $("#product_unit_edit").val();
     var product_category = $("#product_category_edit").val();
+    var product_description = $("#product_description_edit").val();
+    var product_cogs     = product_cogs_edit.get();
     var product_price    = product_price_edit.get();
 
     $.ajax({
@@ -529,7 +536,9 @@ $('#edit-product').on('click', function (e) {
             product_name: product_name,
             product_unit: product_unit,
             product_category: product_category,
-            product_price: product_price
+            product_price: product_price,
+            product_cogs: product_cogs,
+            product_description: product_description
         },
         success: function (data) {
            if (data.code == "200") {

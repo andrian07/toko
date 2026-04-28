@@ -20,7 +20,7 @@ require DOC_ROOT_PATH . $this->config->item('header');
 						<div class="text-md font-semibold">Penjualan Hari Ini</div>
 					</div>
 					<div class="mt-5 flex items-center">
-						<div class="text-2xl font-bold ltr:mr-3 rtl:ml-3">Rp. <?= number_format($data['today_sales']->total_today_sales, 0, ',', '.') ?></div>
+						<div class="text-2xl font-bold ltr:mr-3 rtl:ml-3">Rp. <?= number_format($data['today_sales']->total_today_sales ?? 0, 0, ',', '.') ?></div>
 					</div>
 				</div>
 
@@ -31,7 +31,7 @@ require DOC_ROOT_PATH . $this->config->item('header');
 						
 					</div>
 					<div class="mt-5 flex items-center">
-						<div class="text-2xl font-bold">Rp. <?= number_format($data['monthly_sales']->total_monthly_sales, 0, ',', '.') ?></div>
+						<div class="text-2xl font-bold">Rp. <?= number_format($data['monthly_sales']->total_monthly_sales ?? 0, 0, ',', '.') ?></div>
 					</div>
 				</div>
 
@@ -43,7 +43,7 @@ require DOC_ROOT_PATH . $this->config->item('header');
 						</div>
 					</div>
 					<div class="mt-5 flex items-center">
-						<div class="text-1xl font-bold ltr:mr-3 rtl:ml-3">Rp. <?= number_format($data['piutang_supplier']->total_debt, 0, ',', '.') ?></div>
+						<div class="text-1xl font-bold ltr:mr-3 rtl:ml-3">Rp. <?= number_format($data['piutang_supplier']->total_debt ?? 0, 0, ',', '.') ?></div>
 						<div class="badge bg-white/30"><?= $data['piutang_supplier']->qty_nota_debt ?> Nota</div>
 					</div>
 					<div class="mt-5 flex items-center font-semibold">
@@ -77,7 +77,7 @@ require DOC_ROOT_PATH . $this->config->item('header');
 					<div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Hutang Customer Jatuh Tempo</div>
 				</div>
 				<div class="mt-5 flex items-center">
-					<div class="text-1xl font-bold ltr:mr-3 rtl:ml-3">Rp. <?= number_format($data['hutang_customer']->total_receivable, 0, ',', '.') ?></div>
+					<div class="text-1xl font-bold ltr:mr-3 rtl:ml-3">Rp. <?= number_format($data['hutang_customer']->total_receivable ?? 0, 0, ',', '.') ?></div>
 					<div class="badge bg-white/30"><?= $data['hutang_customer']->qty_nota_receivable ?> Nota</div>
 				</div>
 				<div class="mt-5 flex items-center font-semibold">
